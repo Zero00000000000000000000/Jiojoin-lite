@@ -1,0 +1,1 @@
+[submodule "third_party/pjsip-android"]\n\tpath = third_party/pjsip-android\n\turl = https://github.com/VoiSmart/pjsip-android.git\n

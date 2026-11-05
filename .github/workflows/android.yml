@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4\n        with:\n          submodules: recursive
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -23,7 +23,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Build debug APK
+      - name: Set up Android SDK and PJSIP NDK\n        uses: android-actions/setup-android@v3\n        with:\n          packages: ndk;27.3.13750724\n      - name: Build debug APK
         run: gradle assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
