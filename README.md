@@ -12,9 +12,11 @@ An experimental Android client for JioAirFiber voice service, initially targetin
 - SIP XML parsing. Credentials are held in memory only and are not printed to the UI or logs.
 - GitHub Actions debug APK build.
 
-## Important status
+## SIP engine integration status
 
-**This is not yet a functional calling app.** The router provisioning layer is implemented, but the Jio-compatible SIP registration and audio-call engine are not integrated. The Call button is intentionally a placeholder. Do not rely on this build for emergency calls.
+The repository now includes VoiSmart PJSIP Android as a pinned Git submodule at `third_party/pjsip-android` (Apache-2.0 wrapper; native PJSIP and bundled codec components retain their upstream licenses). Its Java PJSUA2 bindings and Android native libraries are included at build time for arm64-v8a, armeabi-v7a, x86 and x86_64. GitHub Actions checks out the submodule and installs the matching Android NDK.
+
+**This is still not a verified Jio calling app.** The PJSIP service is integrated as a build dependency, but Jio-specific SIP account wiring, device identity compatibility, registration-event handling and real call/audio testing on a JCO500 remain outstanding. The Call button stays a placeholder. Do not rely on this build for emergency calls.
 
 ## Build
 
