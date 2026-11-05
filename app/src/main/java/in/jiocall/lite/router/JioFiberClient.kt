@@ -209,7 +209,7 @@ class JioFiberClient(private val context: Context) {
                 else -> false
             }
         } ?: false
-        if (h != "jiofiber.local.html" && !local) throw JioRouterException("Blocked non-local router address")
+        if (!local) throw JioRouterException("Blocked router address that does not resolve to a private/local IP")
     }
 
     private fun urlHost(host: String) = if (host.contains(":") && !host.startsWith("[")) "[$host]" else host
