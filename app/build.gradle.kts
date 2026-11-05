@@ -5,16 +5,21 @@ plugins {
 }
 
 android {
-    namespace = "in.jiojoin.lite"
+    namespace = "in.jiocall.lite"
     compileSdk = 35
     defaultConfig {
-        applicationId = "in.jiojoin.lite"
+        applicationId = "in.jiocall.lite"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        targetSdk = 33
+        versionCode = 2
+        versionName = "0.2.0"
     }
     buildFeatures { compose = true }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions { jvmTarget = "17" }
 }
 
 dependencies {
@@ -24,5 +29,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
 }
