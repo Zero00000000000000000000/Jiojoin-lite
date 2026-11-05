@@ -200,13 +200,15 @@ class JioFiberClient(private val context: Context) {
     private fun requireRouterHost(host: String) {
         val h = host.trim().removePrefix("[").removeSuffix("]")
         val address = runCatching { InetAddress.getByName(h) }.getOrNull()
-        val bytes = address?.address?.map { it.toInt() and 0xff }.orEmpty()
-        val local = when (bytes.size) {
-            4 -> bytes[0] == 10 || (bytes[0] == 172 && bytes[1] in 16..31) ||
-                (bytes[0] == 192 && bytes[1] == 168) || bytes[0] == 127
-            16 -> address!!.isSiteLocalAddress || address.isLoopbackAddress || address.isLinkLocalAddress
-            else -> false
-        }
+        val local = address?.let { ip ->
+            val bytes = ip.address.map { it.toInt() and 0xff }
+            when (bytes.size) {
+                4 -> bytes[0] == 10 || (bytes[0] == 172 && bytes[1] in 16..31) ||
+                    (bytes[0] == 192 && bytes[1] == 168) || bytes[0] == 127
+                16 -> ip.isSiteLocalAddress || ip.isLoopbackAddress || ip.isLinkLocalAddress
+                else -> false
+            }
+        } ?: false
         if (h != "jiofiber.local.html" && !local) throw JioRouterException("Blocked non-local router address")
     }
 
