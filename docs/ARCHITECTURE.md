@@ -22,9 +22,11 @@ Temporary credentials use `nwk_intf=eth`. Permanent credentials use `nwk_intf=wi
 
 The router returns SIP values in XML `parm` elements. Never print credentials or OTPs to logs, crash reports or issue comments.
 
-## SIP engine — next milestone
+## SIP engine integration
 
-The native SIP engine is intentionally not represented as complete. The JFC-RusTone source uses PJSIP with project-specific behavior for the Jio device identity. The Android implementation must:
+The repository pins VoiSmart PJSIP Android as a Git submodule at `third_party/pjsip-android` and includes its `sipservice` Android library as a Gradle project dependency. The module supplies PJSUA2 Java bindings, JNI libraries and a background SIP service. GitHub Actions checks out submodules recursively and installs NDK `27.3.13750724`. Upstream revision: `f96e220ec8b7b6e359bb850f8ffaa6d34f45c360` (PJSIP 2.16; see the upstream Apache-2.0 license and bundled third-party notices).
+
+**Integration is build-level only; Jio registration and calling are not enabled.** The JFC-RusTone source uses PJSIP with project-specific behavior for the Jio device identity. The remaining implementation must:
 
 1. Build a supported PJSIP native library for Android ABIs (at least arm64-v8a; add armeabi-v7a only if needed).
 2. Preserve the Jio device hash / MAC calculation used during provisioning.
